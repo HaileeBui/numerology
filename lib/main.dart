@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:numerology/providers/theme_model.dart';
 import 'package:numerology/screen/SplashScreen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
         child: Consumer(builder: (context, ThemeModal themeNotifier, child) {
           return MaterialApp(
             title: 'Numerology',
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             theme: ThemeData(
               fontFamily: 'Roboto_Slab',
               scaffoldBackgroundColor:

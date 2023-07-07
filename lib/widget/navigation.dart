@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:numerology/screen/HistoryScreen.dart';
 import 'package:numerology/screen/HomeScreen.dart';
 import 'package:numerology/screen/SettingsScreen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -35,18 +36,18 @@ class _BottomNavigationState extends State<BottomNavigation> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: AppLocalizations.of(context)!.home,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.history),
-              label: 'History',
+              label: AppLocalizations.of(context)!.history,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'Settings',
+              label: AppLocalizations.of(context)!.settings,
             ),
           ],
           backgroundColor: Colors.purple,

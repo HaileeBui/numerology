@@ -1,0 +1,10 @@
+{ "name": "Nimi" ,
+  "dob": "Syntymäpäivä" ,
+  "home": "Koti" ,
+  "history": "Historia" ,
+  "settings": "Asetukset" ,
+  "see_results": "Katso tulokset" ,
+  "change_background": "Vaihda taustakuva" ,
+  "previous_searches": "Aiemat haut" ,
+  "empty_return": "Sinulla ei ole hakua" 
+}

@@ -1,6 +1,10 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:numerology/model/search.dart';
 import 'package:numerology/screen/DetailScreen.dart';
+import 'package:numerology/util/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomForm extends StatefulWidget {
   const CustomForm({super.key});
@@ -10,6 +14,7 @@ class CustomForm extends StatefulWidget {
 }
 
 class _CustomFormState extends State<CustomForm> {
+  List<Search> _searchList = [];
   TextEditingController _dateInput = TextEditingController();
   TextEditingController _nameInput = TextEditingController();
 
@@ -22,6 +27,28 @@ class _CustomFormState extends State<CustomForm> {
     super.initState();
   }
 
+  Future<void> saveSearch(Search newSearch) async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentString = prefs.getString(SEARCH_KEY);
+
+    List<Search> objectList = [];
+
+    if (currentString != null) {
+      objectList = Search.decode(currentString);
+    }
+
+    Search existingObject;
+    try {
+      existingObject = objectList.firstWhere(
+          (obj) => obj.name == newSearch.name && obj.dob == newSearch.dob);
+      print('existing obj: $existingObject');
+    } catch (e) {
+      objectList.add(newSearch);
+    }
+
+    await prefs.setString(SEARCH_KEY, Search.encode(objectList));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -32,10 +59,10 @@ class _CustomFormState extends State<CustomForm> {
           children: [
             TextFormField(
               controller: _nameInput,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 icon: Icon(Icons.person),
                 hintText: 'Enter your name',
-                labelText: 'Name',
+                labelText: AppLocalizations.of(context)!.name,
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -48,7 +75,7 @@ class _CustomFormState extends State<CustomForm> {
               controller: _dateInput,
               decoration: InputDecoration(
                   icon: Icon(Icons.calendar_today),
-                  labelText: "Date of birth",
+                  labelText: AppLocalizations.of(context)!.dob,
                   errorText: _validate ? 'Please enter DOB' : null),
               readOnly: true,
               onTap: () async {
@@ -82,13 +109,15 @@ class _CustomFormState extends State<CustomForm> {
                           : _validate = false;
                     });
                     if (_formKey.currentState!.validate()) {
+                      saveSearch(
+                          Search(name: _nameInput.text, dob: _dateInput.text));
                       // If the form is valid, display a Snackbar.
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => DetailScreen(
                               name: _nameInput.text, dob: _dateInput.text)));
                     }
                   },
-                  child: Text('See results'),
+                  child: Text(AppLocalizations.of(context)!.see_results),
                 )),
           ],
         ));

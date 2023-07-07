@@ -1,0 +1,10 @@
+{ "name": "Name" ,
+  "dob": "Date of birth" ,
+  "home": "Home" ,
+  "history": "History" ,
+  "settings": "Settings" ,
+  "see_results": "See results" ,
+  "change_background": "Change background" ,
+  "previous_searches": "Previous searches" ,
+  "empty_return": "You don't have any searches" 
+  }
