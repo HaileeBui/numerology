@@ -1,9 +1,9 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:numerology/model/search.dart';
-import 'package:numerology/screen/DetailScreen.dart';
-import 'package:numerology/util/constants.dart';
+import 'package:numerology_app/model/search.dart';
+import 'package:numerology_app/screen/DetailScreen.dart';
+import 'package:numerology_app/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomForm extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/screen/HistoryScreen.dart';
-import 'package:numerology/screen/HomeScreen.dart';
-import 'package:numerology/screen/SettingsScreen.dart';
+import 'package:numerology_app/screen/HistoryScreen.dart';
+import 'package:numerology_app/screen/HomeScreen.dart';
+import 'package:numerology_app/screen/SettingsScreen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BottomNavigation extends StatefulWidget {

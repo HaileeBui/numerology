@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:numerology/model/theme_preferences.dart';
+import 'package:numerology_app/model/theme_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Search {

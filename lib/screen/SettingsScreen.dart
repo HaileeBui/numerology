@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/providers/theme_model.dart';
-import 'package:numerology/widget/switch.dart';
+import 'package:numerology_app/providers/theme_model.dart';
+import 'package:numerology_app/widget/switch.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {

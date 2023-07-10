@@ -1,4 +1,4 @@
-import 'package:numerology/util/constants.dart';
+import 'package:numerology_app/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemePreferences {

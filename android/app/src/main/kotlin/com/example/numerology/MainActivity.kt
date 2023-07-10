@@ -1,4 +1,4 @@
-package com.example.numerology
+package com.example.numerology_app
 
 import io.flutter.embedding.android.FlutterActivity
 

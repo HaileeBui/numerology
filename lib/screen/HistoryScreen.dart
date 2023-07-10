@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/model/search.dart';
+import 'package:numerology_app/model/search.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:numerology/util/constants.dart';
+import 'package:numerology_app/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -28,10 +28,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
     });
   }
 
-  Future<void> deleteSearch() async{
+  Future<void> saveSearches(List<Search> list) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(SEARCH_KEY, Search.encode(list));
+  }
+
+  Future<void> deleteSearch(Search search) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final list = prefs.getString(SEARCH_KEY);
 
+    List<Search> objectList = [];
+
+    if (list != null) {
+      objectList = Search.decode(list);
+    }
+
+    objectList.removeWhere(
+        (item) => item.name == search.name && item.dob == search.dob);
+    await prefs.setString(SEARCH_KEY, Search.encode(objectList));
   }
 
   Future<void> deleteAllSearches() async {
@@ -87,13 +101,32 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           const SizedBox(height: 20),
           _searchList.isNotEmpty
-              ? ListView.builder(
-                  primary: false,
-                  itemCount: _searchList.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return item(index);
-                  })
+              ? Theme(
+                  data: ThemeData(
+                    canvasColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                  ),
+                  child: ReorderableListView.builder(
+                      onReorder: (oldIndex, newIndex) => {
+                            setState(
+                              () {
+                                if (newIndex > oldIndex) {
+                                  newIndex -= 1;
+                                }
+                                final Search search =
+                                    _searchList.removeAt(oldIndex);
+                                _searchList.insert(newIndex, search);
+                                saveSearches(_searchList);
+                              },
+                            ),
+                          },
+                      primary: false,
+                      itemCount: _searchList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return item(index);
+                      }),
+                )
               : Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(AppLocalizations.of(context)!.empty_return),
@@ -104,44 +137,63 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget item(int index) {
-    return Dismissible(
+    return Container(
       key: Key('$index'),
-      onDismissed: (direction) => {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-                '${_searchList[index].name} - ${_searchList[index].dob} deleted')))
-      },
-      child: AnimatedContainer(
-        height: 55,
-        width: screenWidth,
-        curve: Curves.easeInOut,
-        duration: Duration(milliseconds: 300 + (index * 100)),
-        transform:
-            Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
-        margin: const EdgeInsets.only(bottom: 12),
-        decoration: BoxDecoration(
-          color: Colors.purple.withOpacity(0.7),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-              _searchList[index].name,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
+      margin: EdgeInsets.only(bottom: 12),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: Dismissible(
+          key: Key('$index'),
+          direction: DismissDirection.endToStart,
+          background: Container(
+            alignment: AlignmentDirectional.centerEnd,
+            color: Colors.black,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
             ),
-            Text(
-              _searchList[index].dob,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-            )
-          ]),
+          ),
+          onDismissed: (direction) => {
+            deleteSearch(_searchList[index]),
+            setState(() {
+              _searchList.removeAt(index);
+            }),
+          },
+          child: AnimatedContainer(
+            height: 55,
+            width: screenWidth,
+            curve: Curves.easeInOut,
+            duration: Duration(milliseconds: 300 + (index * 100)),
+            transform: Matrix4.translationValues(
+                startAnimation ? 0 : screenWidth, 0, 0),
+            decoration: BoxDecoration(
+              color: Colors.purple.withOpacity(0.7),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _searchList[index].name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      _searchList[index].dob,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
+                    )
+                  ]),
+            ),
+          ),
         ),
       ),
     );
