@@ -39,9 +39,9 @@ class _CustomFormState extends State<CustomForm> {
 
     Search existingObject;
     try {
-      existingObject = objectList.firstWhere(
-          (obj) => obj.name == newSearch.name && obj.dob == newSearch.dob);
-      print('existing obj: $existingObject');
+      existingObject = objectList.firstWhere((obj) =>
+          obj.name.toLowerCase() == newSearch.name.toLowerCase() &&
+          obj.dob == newSearch.dob);
     } catch (e) {
       objectList.add(newSearch);
     }
@@ -83,7 +83,7 @@ class _CustomFormState extends State<CustomForm> {
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime(1950),
-                    lastDate: DateTime(2100));
+                    lastDate: DateTime.now());
 
                 if (pickedDate != null) {
                   setState(() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:numerology_app/model/search.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:numerology_app/screen/DetailScreen.dart';
 import 'package:numerology_app/util/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -137,61 +138,68 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget item(int index) {
-    return Container(
+    return GestureDetector(
       key: Key('$index'),
-      margin: EdgeInsets.only(bottom: 12),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15.0),
-        child: Dismissible(
-          key: Key('$index'),
-          direction: DismissDirection.endToStart,
-          background: Container(
-            alignment: AlignmentDirectional.centerEnd,
-            color: Colors.black,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-              child: Icon(
-                Icons.delete,
-                color: Colors.white,
+      onTap: (() => Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => DetailScreen(
+                    name: _searchList[index].name,
+                    dob: _searchList[index].dob)),
+          )),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 12),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: Dismissible(
+            key: Key('$index'),
+            direction: DismissDirection.endToStart,
+            background: Container(
+              alignment: AlignmentDirectional.centerEnd,
+              color: Colors.black,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          onDismissed: (direction) => {
-            deleteSearch(_searchList[index]),
-            setState(() {
-              _searchList.removeAt(index);
-            }),
-          },
-          child: AnimatedContainer(
-            height: 55,
-            width: screenWidth,
-            curve: Curves.easeInOut,
-            duration: Duration(milliseconds: 300 + (index * 100)),
-            transform: Matrix4.translationValues(
-                startAnimation ? 0 : screenWidth, 0, 0),
-            decoration: BoxDecoration(
-              color: Colors.purple.withOpacity(0.7),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      _searchList[index].name,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      _searchList[index].dob,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ]),
+            onDismissed: (direction) => {
+              deleteSearch(_searchList[index]),
+              setState(() {
+                _searchList.removeAt(index);
+              }),
+            },
+            child: AnimatedContainer(
+              height: 55,
+              width: screenWidth,
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 300 + (index * 100)),
+              
+              decoration: BoxDecoration(
+                color: Colors.purple.withOpacity(0.7),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        _searchList[index].name,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Text(
+                        _searchList[index].dob,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      )
+                    ]),
+              ),
             ),
           ),
         ),

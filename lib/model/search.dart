@@ -1,7 +1,6 @@
 import 'dart:convert';
-
-import 'package:numerology_app/model/theme_preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ffi';
+import 'package:collection/collection.dart';
 
 class Search {
   final String name, dob;
@@ -30,4 +29,5 @@ class Search {
       (json.decode(searches) as List<dynamic>)
           .map<Search>((item) => Search.fromJson(item))
           .toList();
+
 }
