@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:numerology/numerology.dart';
-import 'package:collection/collection.dart';
-
 class DetailScreen extends StatefulWidget {
   String name, dob;
 
@@ -12,7 +9,6 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  final nc = NumerologyCalculator();
   int _totalMonth = 0;
   int _totalDay = 0;
   int _totalYear = 0;

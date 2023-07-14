@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:collection/collection.dart';
 
 class Search {
   final String name, dob;
@@ -13,7 +11,7 @@ class Search {
       dob: jsonData['dob'],
     );
   }
-
+  
   static Map<String, dynamic> toMap(Search search) => {
         'name': search.name,
         'dob': search.dob,

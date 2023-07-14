@@ -175,7 +175,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
               width: screenWidth,
               curve: Curves.easeInOut,
               duration: Duration(milliseconds: 300 + (index * 100)),
-              
               decoration: BoxDecoration(
                 color: Colors.purple.withOpacity(0.7),
               ),

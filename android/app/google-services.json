@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "298440210802",
+    "firebase_url": "https://numerology-5f5ae-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "numerology-5f5ae",
+    "storage_bucket": "numerology-5f5ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298440210802:android:efc4a1f1cd8c82ad7ec5eb",
+        "android_client_info": {
+          "package_name": "com.example.numerology"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298440210802-amet1vlfqvt36ehv554en2mjdm90be8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.numerology",
+            "certificate_hash": "8585de177ca7108df3dd0e369e7c52305743417c"
+          }
+        },
+        {
+          "client_id": "298440210802-ap8hi9cig32uksehk8k3k9o1bpa4v13s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_byDeg3Tj3TawFL3xyEZaBdGjvp6UCVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298440210802-ap8hi9cig32uksehk8k3k9o1bpa4v13s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "298440210802-2kboele1kmbhfho9fss8cklrr8rufrqp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.numerology"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
