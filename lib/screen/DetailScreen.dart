@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:numerology_app/screen/NumberDetailScreen.dart';
+
 class DetailScreen extends StatefulWidget {
   String name, dob;
 
@@ -196,8 +198,14 @@ class _DetailScreenState extends State<DetailScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomBar(
-                                'Life path', _getLifePathNumber(), purple),
+                            GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => NumberDetail(
+                                          number: _getLifePathNumber()))),
+                              child: CustomBar(
+                                  'Life path', _getLifePathNumber(), purple),
+                            ),
                             CustomBar('Attitude', _getAttitudeNumber(), purple),
                           ],
                         )
